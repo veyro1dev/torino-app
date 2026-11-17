@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14181f">
+<title>Torino scanner</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #14181f; color: #fff; font: 18px/1.35 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: calc(8px + env(safe-area-inset-top)) 14px 8px; }
+  header b { letter-spacing: 2px; }
+  .demo { background: #ffd400; color: #111; font-weight: 800; padding: 3px 9px; border-radius: 6px; font-size: 14px; }
+  .veh { font-size: 14px; color: #bbc; padding: 0 14px 6px; }
+  .cam { position: relative; background: #000; aspect-ratio: 4 / 3; max-height: 46vh; width: 100%; overflow: hidden; }
+  video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .frame { position: absolute; left: 8%; right: 8%; top: 32%; bottom: 32%; border: 4px solid #ffffffcc; border-radius: 12px; pointer-events: none; }
+  .frame.hit { border-color: #2ecc71; } .frame.bin { border-color: #ffd400; }
+  .msg { margin: 10px 12px; padding: 14px; border-radius: 12px; font-size: 20px; font-weight: 700; text-align: center; background: #2b3240; }
+  .msg.ok { background: #0a7a3a; } .msg.bad { background: #b3261e; } .msg.warn { background: #b87000; } .msg.bin { background: #8a6d00; }
+  .card { background: #fff; color: #111; margin: 10px 12px; border-radius: 14px; padding: 14px 16px; }
+  .card h2 { margin: 0 0 4px; font-size: 22px; } .card .id { color: #555; font-size: 15px; }
+  .card table { width: 100%; border-collapse: collapse; margin-top: 8px; } .card td { padding: 8px 4px; border-top: 1px solid #ddd; font-size: 18px; }
+  .card td.q { font-weight: 800; font-size: 22px; text-align: right; }
+  .btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 10px 12px calc(14px + env(safe-area-inset-bottom)); }
+  button, .btn { min-height: 58px; border-radius: 12px; border: 0; font: 700 18px system-ui, sans-serif; background: #3d4a63; color: #fff; padding: 8px 10px; }
+  button.primary { background: #1450b8; } button.go { background: #0a7a3a; } button[disabled] { opacity: .45; }
+  .panel { background: #fff; color: #111; margin: 10px 12px; border-radius: 14px; padding: 14px 16px; }
+  .panel h3 { margin: 0 0 10px; }
+  .panel label.opt { display: flex; gap: 12px; align-items: center; border: 2px solid #ccc; border-radius: 10px; padding: 12px; margin: 8px 0; font-size: 18px; }
+  .panel input[type=radio] { width: 26px; height: 26px; }
+  .panel input[type=text], .panel select { width: 100%; font-size: 22px; padding: 12px; border-radius: 10px; border: 2px solid #999; }
+  .qty { display: flex; align-items: center; gap: 14px; margin: 10px 0; } .qty button { width: 64px; font-size: 28px; } .qty span { font-size: 30px; font-weight: 800; min-width: 50px; text-align: center; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .hidden { display: none !important; }
+  .notpaired { padding: 24px; } .notpaired h1 { font-size: 26px; }
+  .small { font-size: 14px; color: #555; }
+</style>
+</head>
+<body>
+<div id="unpaired" class="notpaired hidden">
+  <h1>This phone isn't paired yet</h1>
+  <p>On the laptop, open Torino and click <b>Pair Phone</b>, then scan the <b>Pair</b> QR code with this phone's camera.</p>
+</div>
+<div id="app" class="hidden">
+  <header><b>TORINO</b><span id="demo" class="demo hidden">DEMO DATA</span><span id="dev" class="small" style="color:#99a"></span></header>
+  <div class="veh" id="veh"></div>
+  <div class="cam"><video id="video" playsinline muted autoplay></video><div id="frame" class="frame"></div></div>
+  <div id="msg" class="msg">Starting camera…</div>
+  <div id="result"></div>
+  <div id="panel"></div>
+  <div class="btns">
+    <button id="bType">Type code</button>
+    <button id="bPhoto">Photo</button>
+    <button id="bMove" disabled>Move</button>
+  </div>
+  <input id="photoInput" type="file" accept="image/*" capture="environment" class="hidden">
+  <canvas id="canvas" class="hidden"></canvas>
+</div>
+<script src="/static/phone.js"></script>
+</body>
+</html>

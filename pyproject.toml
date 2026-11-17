@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "torino-parts"
+version = "0.3.2"
+description = "Car rebuild + parts inventory: desktop app, phone scanner, Google Sheets/Drive, MCP tools, Brother PT-P700 labels"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "mcp>=2.3,<3",
+  "google-api-python-client>=2.150",
+  "google-auth>=2.35",
+  "google-auth-oauthlib>=1.2",
+  "google-auth-httplib2>=0.2",
+  "pillow>=11",
+  "python-barcode>=0.15",
+  "filelock>=3.15",
+  "starlette>=0.40",
+  "uvicorn>=0.30",
+  "cryptography>=43",
+  "segno>=1.6",
+  "zxing-cpp>=2.2",
+  "pywin32>=308; sys_platform == 'win32'",
+  "pywebview>=5.3; sys_platform == 'win32'",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+torino = "torino_parts.cli:main"
+
+[project.gui-scripts]
+torino-app = "torino_parts.desktop:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+torino_parts = ["*.md", "web/static/desktop/*", "web/static/phone/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

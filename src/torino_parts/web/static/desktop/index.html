@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Torino Garage</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#/rebuild">TORINO<span>garage</span></a>
+  <label class="vehicle-pick">
+    <span>Vehicle</span>
+    <select id="vehicleSel" aria-label="Active vehicle"></select>
+  </label>
+  <form id="scanForm" class="scan" autocomplete="off">
+    <input id="scanBox" type="search" placeholder="Scan or search: P-00001, B-04, J-00002, “left door hinge”…" aria-label="Scan or search">
+    <button type="submit" class="btn primary">Go</button>
+  </form>
+  <div class="chips">
+    <button class="chip" id="chipWorkbook" data-go="#/settings" title="Workbook">…</button>
+    <button class="chip" id="chipPrinter" data-go="#/labels" title="Printer">…</button>
+    <button class="chip" id="chipPhone" data-act="pair" title="Phone">…</button>
+    <button class="btn" data-act="pair">Pair Phone</button>
+  </div>
+</header>
+<div id="demoBanner" class="demo-banner" hidden>DEMO DATA — sample records, not your real garage. Switch to Local (this PC) or Google in Settings → Data.</div>
+<div id="errorBanner" class="error-banner" hidden></div>
+<div class="layout">
+  <nav id="nav">
+    <a href="#/rebuild" data-nav="rebuild">Rebuild</a>
+    <a href="#/progress" data-nav="progress">Progress</a>
+    <a href="#/vehicles" data-nav="vehicles">Vehicles</a>
+    <a href="#/jobs" data-nav="jobs">Rebuild Jobs</a>
+    <a href="#/parts" data-nav="parts">Parts &amp; Bins</a>
+    <a href="#/shopping" data-nav="shopping">Shopping</a>
+    <a href="#/money" data-nav="money">Money</a>
+    <a href="#/notebook" data-nav="notebook">Notebook</a>
+    <a href="#/photos" data-nav="photos">Photos</a>
+    <a href="#/labels" data-nav="labels">Labels</a>
+    <a href="#/settings" data-nav="settings">Settings</a>
+  </nav>
+  <main id="main"><p class="muted">Loading…</p></main>
+</div>
+<div id="toasts" aria-live="polite"></div>
+<dialog id="dlg"></dialog>
+<script src="/static/app.js"></script>
+</body>
+</html>
